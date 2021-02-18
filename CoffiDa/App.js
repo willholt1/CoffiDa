@@ -13,7 +13,7 @@ class Coffi extends Component {
   render(){
     return(
       <View>
-        <Text>Hello World adding words as a test</Text>
+        <Text>Hello World</Text>
       </View>
     );
   }
