@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 
-class AccountInfo extends Component{
-  render(){
-    return(
+const AccountInfo = ( {navigation} ) => {
+    return (
         <View>
-          <Text>Account Info</Text>
+            <Text>Account Info</Text>
+            <Button
+                title="UpdateInfo"
+                onPress={() => navigation.navigate('UpdateInfo')}
+            />
         </View>
     );
-  }
 }
 
-export default AccountInfo;
+export default AccountInfo; 
