@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
+import styles from '../Style/Styles';
 
-const Location = ( {navigation} ) => {
-    return (
-        <View>
-            <Text>Location</Text>
-            <Button
-                title="Reviews List"
-                onPress={() => navigation.navigate('ReviewsList')}
-            />
-            <Button
-                title="Home"
-                onPress={() => navigation.popToTop()}
-            />
-        </View>
-    );
+class Location extends Component {
+    render() {
+        const navigation = this.props.navigation;
+        return (
+            <View>
+                <Text>Location</Text>
+                <Button
+                    title="Reviews List"
+                    onPress={() => navigation.navigate('ReviewsList')}
+                />
+                <Button
+                    title="Home"
+                    onPress={() => navigation.popToTop()}
+                />
+            </View>
+        );
+    }
 }
-
 
 export default Location;

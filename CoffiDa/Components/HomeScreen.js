@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, SafeAreaView } from 'react-native';
 
-const HomeScreen = ( {navigation} ) => {
-    return (
-        <View>
-            <Text>Home Screen</Text>
-            <Button
-                title="Location"
-                onPress={() => navigation.navigate('Location')}
-            />
-        </View>
-    );
+class HomeScreen extends Component {
+    render() {
+        const navigation = this.props.navigation;
+
+        return (
+            <View>
+                <Text>Home Screen</Text>
+                <Button
+                    title="Location"
+                    onPress={() => navigation.navigate('Location')}
+                />
+            </View>
+        );
+    }
 }
 
 export default HomeScreen;

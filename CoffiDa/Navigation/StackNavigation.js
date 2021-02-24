@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Text, View, Button, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from '../Components/HomeScreen';
@@ -15,12 +16,25 @@ import LikedReviews from '../Components/LikedReviews';
 import EditReview from '../Components/EditReview';
 import MyReviews from '../Components/MyReviews';
 
+import styles from '../Style/Styles';
+import Login from '../Components/LogIn';
+import Signup from '../Components/SignUp';
+
 const Stack = createStackNavigator();
 
-const MainStack = () => {
+const MainStack = ( {navigation} ) => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} options={{
+                headerLeft: () => (
+                    <TouchableOpacity
+                        style={styles.drawerButton}
+                        onPress={() => navigation.toggleDrawer()}
+                    >
+                        <Text style={styles.drawerButtonText}>+</Text>
+                    </TouchableOpacity>
+                ),
+            }} />
             <Stack.Screen name="Location" component={Location} />
             <Stack.Screen name="ReviewsList" component={ReviewsList} />
             <Stack.Screen name="AddReview" component={AddReview} />
@@ -29,19 +43,37 @@ const MainStack = () => {
     );
 }
 
-const AccountStack = () => {
-    return(
+const AccountStack = ( {navigation} ) => {
+    return (
         <Stack.Navigator>
-            <Stack.Screen name="AccountInformation" component={AccountInfo} />
+            <Stack.Screen name="AccountInformation" component={AccountInfo} options={{
+                headerLeft: () => (
+                    <TouchableOpacity
+                        style={styles.drawerButton}
+                        onPress={() => navigation.toggleDrawer()}
+                    >
+                        <Text style={styles.drawerButtonText}>+</Text>
+                    </TouchableOpacity>
+                ),
+            }}/>
             <Stack.Screen name="UpdateInfo" component={UpdateInfo} />
         </Stack.Navigator>
     );
 }
 
-const FavouriteLocationsStack = () => {
+const FavouriteLocationsStack = ( {navigation} ) => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="FavouriteLocations" component={FavouriteLocations}/>
+            <Stack.Screen name="FavouriteLocations" component={FavouriteLocations} options={{
+                headerLeft: () => (
+                    <TouchableOpacity
+                        style={styles.drawerButton}
+                        onPress={() => navigation.toggleDrawer()}
+                    >
+                        <Text style={styles.drawerButtonText}>+</Text>
+                    </TouchableOpacity>
+                ),
+            }}/>
             <Stack.Screen name="Location" component={Location} />
             <Stack.Screen name="ReviewsList" component={ReviewsList} />
             <Stack.Screen name="AddReview" component={AddReview} />
@@ -50,25 +82,75 @@ const FavouriteLocationsStack = () => {
     );
 }
 
-const LikedReviewsStack = () => {
+const LikedReviewsStack = ( {navigation} ) => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="LikedReviews" component={LikedReviews}/>
+            <Stack.Screen name="LikedReviews" component={LikedReviews} options={{
+                headerLeft: () => (
+                    <TouchableOpacity
+                        style={styles.drawerButton}
+                        onPress={() => navigation.toggleDrawer()}
+                    >
+                        <Text style={styles.drawerButtonText}>+</Text>
+                    </TouchableOpacity>
+                ),
+            }}/>
             <Stack.Screen name="SingleReview" component={SingleReview} />
         </Stack.Navigator>
     )
 }
 
-const MyReviewsStack = () => {
+const MyReviewsStack = ( {navigation} ) => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="MyReviews" component={MyReviews}/>
+            <Stack.Screen name="MyReviews" component={MyReviews} options={{
+                headerLeft: () => (
+                    <TouchableOpacity
+                        style={styles.drawerButton}
+                        onPress={() => navigation.toggleDrawer()}
+                    >
+                        <Text style={styles.drawerButtonText}>+</Text>
+                    </TouchableOpacity>
+                ),
+            }}/>
             <Stack.Screen name="SingleReview" component={SingleReview} />
             <Stack.Screen name="EditReview" component={EditReview} />
         </Stack.Navigator>
     )
 }
 
+const LoginStack = ( {navigation} ) => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} options={{
+                headerLeft: () => (
+                    <TouchableOpacity
+                        style={styles.drawerButton}
+                        onPress={() => navigation.toggleDrawer()}
+                    >
+                        <Text style={styles.drawerButtonText}>+</Text>
+                    </TouchableOpacity>
+                ),
+            }}/>
+        </Stack.Navigator>
+    )
+}
 
+const SignUpStack = ( {navigation} ) => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="SignUp" component={Signup} options={{
+                headerLeft: () => (
+                    <TouchableOpacity
+                        style={styles.drawerButton}
+                        onPress={() => navigation.toggleDrawer()}
+                    >
+                        <Text style={styles.drawerButtonText}>+</Text>
+                    </TouchableOpacity>
+                ),
+            }}/>
+        </Stack.Navigator>
+    )
+}
 
-export { MainStack, AccountStack, FavouriteLocationsStack, LikedReviewsStack, MyReviewsStack };
+export { MainStack, AccountStack, FavouriteLocationsStack, LikedReviewsStack, MyReviewsStack, LoginStack, SignUpStack };

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { View, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
+import styles from '../Style/Styles';
 
-const Login = () => {
-    return (
-        <View>
-            <Text>Login</Text>
-        </View>
-    );
-}
+class Login extends Component {
+    render() {
+        return (
+            <View>
+
+            </View>
+        );
+    }
+} 
 
 export default Login; 
