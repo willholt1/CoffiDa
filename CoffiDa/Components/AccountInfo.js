@@ -18,7 +18,7 @@ class AccountInfo extends Component {
         const token = await AsyncStorage.getItem('@session_token');
         const user_id = await AsyncStorage.getItem('@user_id');
 
-        return fetch("http://10.0.2.2:3333/api/1.0.0/user/" + user_id + "", {
+        return fetch("http://10.0.2.2:3333/api/1.0.0/user/" + user_id, {
             headers: {
                 'X-Authorization': token
             }
@@ -75,9 +75,6 @@ class AccountInfo extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-
-
-
             );
         }
     }

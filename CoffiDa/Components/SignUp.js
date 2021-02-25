@@ -17,7 +17,7 @@ class SignUp extends Component {
     }
 
     signUp = () => {
-        if (this.state.password == this.state.confirmPass) {
+        if (this.state.password === this.state.confirmPass) {
             let inputtedData = {
                 first_name: this.state.firstName,
                 last_name: this.state.lastName,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, SafeAreaView, FlatList, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import { Text, View, Button, SafeAreaView, FlatList, ActivityIndicator, Alert, TouchableOpacity, TextInput } from 'react-native';
 import styles from '../Style/Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -10,16 +10,15 @@ class HomeScreen extends Component {
 
         this.state = {
             isLoading: true,
-            locationsData: []
+            locationsData: [],
+            query:''
         };
     }
-
-
 
     getData = async () => {
         const token = await AsyncStorage.getItem('@session_token');
 
-        return fetch("http://10.0.2.2:3333/api/1.0.0/find?price_rating=3", {
+        return fetch("http://10.0.2.2:3333/api/1.0.0/find?q=" + this.state.query, {
             headers: {
                 'X-Authorization': token
             }
@@ -47,6 +46,11 @@ class HomeScreen extends Component {
             })
     }
 
+    setLocID = async (id) => {
+        await AsyncStorage.setItem('@location_id', id.toString());
+        console.log(id);
+    }
+
     componentDidMount() {
         this.getData();
     }
@@ -57,27 +61,45 @@ class HomeScreen extends Component {
         if (this.state.isLoading) {
             return (
                 <View>
-                    <ActivityIndicator size="large" color="dodgerblue"/>
+                    <ActivityIndicator size="large" color="dodgerblue" />
                 </View>
             )
         } else {
 
             return (
                 <View>
-                    <FlatList 
-                        data={this.state.locationsData}
-                        renderItem={({item, index}) => (
-                            <View>
-                                <TouchableOpacity style={styles.formTouch}
-                                    onPress={() => navigation.navigate('Location')}
-                                >
-                                    <Text style={styles.formTouchText}>{item.location_name}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        )}
-                    />
+                    <View style={styles.formItem}>
+                        <TextInput
+                            placeholder="Search"
+                            style={styles.formInput}
+                            onChangeText={(query) => this.setState({ query })}
+                            value={this.state.query}
+                        />
+                    </View>
+                    <View style={styles.formItem}>
+                            <TouchableOpacity
+                                style={styles.formTouch}
+                                onPress={() => {this.getData(); this.setState({isLoading: false});}}
+                            >
+                                <Text style={styles.formTouchText}>Search</Text>
+                            </TouchableOpacity>
+                        </View>
+                    <View>
+                        <FlatList
+                            data={this.state.locationsData}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <TouchableOpacity style={styles.formTouch}
+                                        onPress={() => {navigation.navigate('Location'); this.setLocID(item.location_id)}}
+                                    >
+                                        <Text style={styles.formTouchText}>{item.location_name}   ➜</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                            keyExtractor={({ id }, index) => id}
+                        />
+                    </View>
                 </View>
-
             );
         }
     }
