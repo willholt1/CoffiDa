@@ -31,12 +31,27 @@ export default StyleSheet.create({
     formTouch: {
         backgroundColor: 'dodgerblue',
         padding: 10,
-        alignItems: 'center'
+        alignItems: 'center',
+        borderWidth: 1,
+        borderRadius: 4,
+        borderColor: 'lightblue'
     },
     formTouchText: {
         fontSize: 20,
         fontWeight: 'bold',
         color: 'aliceblue'
-    }
+    },
+    textStyle: {
+        padding: 15,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: 'dodgerblue'
+    },
+    middleTouch: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+    },
+
 
 })

@@ -17,28 +17,41 @@ class SignUp extends Component {
     }
 
     signUp = () => {
-        let inputtedData = {
-            first_name: this.state.firstName,
-            last_name: this.state.lastName,
-            email: this.state.email,
-            password: this.state.password
+        if (this.state.password == this.state.confirmPass) {
+            let inputtedData = {
+                first_name: this.state.firstName,
+                last_name: this.state.lastName,
+                email: this.state.email,
+                password: this.state.password
+            }
+
+            return fetch("http://10.0.2.2:3333/api/1.0.0/user", {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(inputtedData)
+
+            })
+                .then((response) => {
+                    if (response.status === 201) {
+                        Alert.alert("Signup Successful");
+                        return response.json();
+                    } else if (response.status === 400) {
+                        throw "failed validation";
+                    } else {
+                        throw "something went wrong";
+                    }
+                })
+                .then((responseJson) => {
+                    console.log("signup successful. ID = ", responseJson);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        } else {
+            Alert.alert("Passwords don't match");
         }
-
-        return fetch("http://10.0.2.2:3333/user", {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(inputtedData)
-
-        })
-
-        .then((response) => {
-            Alert.alert("Signup Successful");
-        })
-        .catch((error) => {
-            console.log(error);
-        })
 
     }
 

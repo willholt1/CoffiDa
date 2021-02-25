@@ -2,11 +2,7 @@ import * as React from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import {MainStack, AccountStack, FavouriteLocationsStack, LikedReviewsStack, MyReviewsStack, LoginStack, SignUpStack} from './StackNavigation';
-
-import Login from '../Components/LogIn';
-import Signup from '../Components/SignUp';
-
+import {MainStack, AccountStack, FavouriteLocationsStack, LikedReviewsStack, MyReviewsStack, LoginStack, SignUpStack, LogOutStack} from './StackNavigation';
 
 const Drawer = createDrawerNavigator();
 
@@ -18,6 +14,7 @@ const MainDrawer = () => {
             <Drawer.Screen name="Favourite Locations" component={FavouriteLocationsStack} />
             <Drawer.Screen name="Liked Reviews" component={LikedReviewsStack} />
             <Drawer.Screen name="My Reviews" component={MyReviewsStack} />
+            <Drawer.Screen name="LogOut" component={LogOutStack}/>
         </Drawer.Navigator>
     );
 }
@@ -25,7 +22,6 @@ const MainDrawer = () => {
 const DrawerSO = () => {
     return(
         <Drawer.Navigator  drawerType="back">
-            <Drawer.Screen name="HomeScreenSO" component={MainStack} />
             <Drawer.Screen name="Login" component={LoginStack} />
             <Drawer.Screen name="Signup" component={SignUpStack} />
         </Drawer.Navigator>

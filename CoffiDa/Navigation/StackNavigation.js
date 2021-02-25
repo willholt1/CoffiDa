@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, Button, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import styles from '../Style/Styles';
 
 import HomeScreen from '../Components/HomeScreen';
 import Location from '../Components/Location';
@@ -16,9 +17,9 @@ import LikedReviews from '../Components/LikedReviews';
 import EditReview from '../Components/EditReview';
 import MyReviews from '../Components/MyReviews';
 
-import styles from '../Style/Styles';
 import Login from '../Components/LogIn';
 import Signup from '../Components/SignUp';
+import LogOut from '../Components/LogOut'
 
 const Stack = createStackNavigator();
 
@@ -153,4 +154,21 @@ const SignUpStack = ( {navigation} ) => {
     )
 }
 
-export { MainStack, AccountStack, FavouriteLocationsStack, LikedReviewsStack, MyReviewsStack, LoginStack, SignUpStack };
+const LogOutStack = ( {navigation} ) => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="LogOut" component={LogOut} options={{
+                headerLeft: () => (
+                    <TouchableOpacity
+                        style={styles.drawerButton}
+                        onPress={() => navigation.toggleDrawer()}
+                    >
+                        <Text style={styles.drawerButtonText}>+</Text>
+                    </TouchableOpacity>
+                ),
+            }}/>
+        </Stack.Navigator>
+    )
+}
+
+export { MainStack, AccountStack, FavouriteLocationsStack, LikedReviewsStack, MyReviewsStack, LoginStack, SignUpStack, LogOutStack };
