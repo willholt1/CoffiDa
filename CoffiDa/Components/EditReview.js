@@ -122,6 +122,7 @@ class EditReview extends Component {
                 if (response.status === 200) {
                     console.log("update request successful");
                     Alert.alert("Review Updated");
+                    this.props.navigation.goBack();
                     return response.json();
                 } else if (response.status === 400) {
                     console.log("Bad patch request");
@@ -218,7 +219,7 @@ class EditReview extends Component {
                     <View style={styles.formItem}>
                         <TouchableOpacity
                             style={styles.formTouch}
-                            onPress={() => {this.updateReview(); navigation.goBack(); }}
+                            onPress={() => {this.updateReview(); }}
                         >
                             <Text style={styles.formTouchText}>Update Review</Text>
                         </TouchableOpacity>
