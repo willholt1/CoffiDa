@@ -15,6 +15,17 @@ class HomeScreen extends Component {
         };
     }
 
+    componentDidMount() {
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.setState({ isLoading: true });
+            this.getData();
+        })
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     getData = async () => {
         const token = await AsyncStorage.getItem('@session_token');
 
@@ -49,10 +60,6 @@ class HomeScreen extends Component {
     setLocID = async (id) => {
         await AsyncStorage.setItem('@location_id', id.toString());
         console.log(id);
-    }
-
-    componentDidMount() {
-        this.getData();
     }
 
     render() {

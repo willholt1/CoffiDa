@@ -14,6 +14,17 @@ class AccountInfo extends Component {
         };
     }
 
+    componentDidMount() {
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.setState({ isLoading: true });
+            this.getData();
+        })
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     getData = async () => {
         const token = await AsyncStorage.getItem('@session_token');
         const user_id = await AsyncStorage.getItem('@user_id');
@@ -44,10 +55,6 @@ class AccountInfo extends Component {
             .catch((error) => {
                 console.log(error);
             })
-    }
-
-    componentDidMount() {
-        this.getData();
     }
 
     render() {

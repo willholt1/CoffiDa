@@ -50,9 +50,7 @@ class UpdateInfo extends Component {
                     userData: responseJson,
                     firstName: responseJson.first_name,
                     lastName: responseJson.last_name,
-                    email: responseJson.email,
-                    password: responseJson.password,
-                    confirmPass: responseJson.password
+                    email: responseJson.email
                 })
             })
             .catch((error) => {
@@ -70,7 +68,6 @@ class UpdateInfo extends Component {
 
         let inputtedData = {};
         if (this.state.firstName != this.state.userData.first_name) {
-            console.log("if works")
             inputtedData['first_name'] = this.state.firstName;
         }
 
@@ -82,7 +79,7 @@ class UpdateInfo extends Component {
             inputtedData['email'] = this.state.email;
         }
 
-        if ((this.state.password != this.state.userData.password) && (this.state.password === this.state.confirmPass)) {
+        if ((this.state.password != this.state.userData.password) && (this.state.password === this.state.confirmPass) && (this.state.password != '')) {
             inputtedData['password'] = this.state.firstName;
         }
 
@@ -112,12 +109,6 @@ class UpdateInfo extends Component {
                 } else {
                     console.log("something went wrong");
                 }
-            })
-            .then((responseJson) => {
-                this.setState({
-                    isLoading: false,
-                    userData: responseJson
-                })
             })
             .catch((error) => {
                 console.log(error);

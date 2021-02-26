@@ -42,7 +42,7 @@ class AddReview extends Component {
             .then((response) => {
                 if (response.status === 201) {
                     Alert.alert("Review Created");
-                    return response.json();
+                    this.props.navigation.goBack();
                 } else if (response.status === 400) {
                     throw "Bad Request";
                 }else if (response.status === 401) {
@@ -59,7 +59,6 @@ class AddReview extends Component {
     }
 
     render() {
-        const navigation = this.props.navigation;
         return (
             <ScrollView>
 
@@ -129,7 +128,7 @@ class AddReview extends Component {
                 <View style={styles.formItem}>
                     <TouchableOpacity
                         style={styles.formTouch}
-                        onPress={() => {this.addReview(); navigation.goBack();}}
+                        onPress={() => {this.addReview();}}
                     >
                         <Text style={styles.formTouchText}>Add Review</Text>
                     </TouchableOpacity>

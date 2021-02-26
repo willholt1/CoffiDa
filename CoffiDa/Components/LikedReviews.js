@@ -14,8 +14,14 @@ class LikedReviews extends Component {
     }
 
     componentDidMount() {
-        this.setState({ isLoading: true });
-        this.getData();
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.setState({ isLoading: true });
+            this.getData();
+        })
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     getData = async () => {
@@ -52,6 +58,11 @@ class LikedReviews extends Component {
             })
     }
 
+    setLocID = async (id) => {
+        await AsyncStorage.setItem('@location_id', id.toString());
+        console.log(id);
+    }
+
     setReviewID = async (id) => {
         await AsyncStorage.setItem('@review_id', id.toString());
     }
@@ -72,9 +83,9 @@ class LikedReviews extends Component {
                         renderItem={({ item }) => (
                             <View>
                                 <TouchableOpacity style={styles.formTouch}
-                                    onPress={() => { navigation.navigate('SingleReview'); this.setReviewID(item.review_id) }}
+                                    onPress={() => { navigation.navigate('SingleReview'); this.setReviewID(item.review.review_id); this.setLocID(item.location.location_id) }}
                                 >
-                                    <Text style={styles.formTouchText}>{item.location.location_name}   ➜</Text>
+                                    <Text style={styles.formTouchText}>{item.location.location_name} {item.review.overall_rating}/5   ➜</Text>
                                 </TouchableOpacity>
                             </View>
                         )}

@@ -21,7 +21,14 @@ class Location extends Component {
     }
 
     componentDidMount() {
-        this.getData();
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.setState({ isLoading: true });
+            this.getData();
+        })
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     getData = async () => {

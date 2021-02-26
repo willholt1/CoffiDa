@@ -14,8 +14,14 @@ class FavouriteLocations extends Component {
     }
     
     componentDidMount() {
-        this.setState({ isLoading: true });
-        this.getData();
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.setState({ isLoading: true });
+            this.getData();
+        })
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     getData = async () => {

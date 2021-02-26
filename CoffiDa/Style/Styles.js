@@ -52,6 +52,11 @@ export default StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
     },
+    sideBySide: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
     numInput: {
         flex: 1,
         flexDirection: 'column',
