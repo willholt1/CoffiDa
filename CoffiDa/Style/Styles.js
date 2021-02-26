@@ -20,7 +20,7 @@ export default StyleSheet.create({
         padding: 20
     },
     formLabel: {
-        fontSize: 15,
+        fontSize: 18,
         color: 'dodgerblue'
     },
     formInput: {
@@ -45,13 +45,21 @@ export default StyleSheet.create({
         padding: 15,
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'dodgerblue'
+        color: 'dodgerblue' 
     },
     middleTouch: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
-
+    numInput: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+    }
 
 })

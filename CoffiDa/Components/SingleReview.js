@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import styles from '../Style/Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -47,6 +47,66 @@ class SingleReview extends Component {
             })
     }
 
+    likeReview = async () => {
+        const location_id = await AsyncStorage.getItem('@location_id');
+        const review_id = await AsyncStorage.getItem('@review_id');
+        const token = await AsyncStorage.getItem('@session_token');
+
+        return fetch("http://10.0.2.2:3333/api/1.0.0/location/"+location_id+"/review/"+review_id+"/like", {
+            method: 'post',
+            headers: {
+                'X-Authorization': token
+            }
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                console.log("Review Liked");
+                Alert.alert("Review Liked");
+            } else if (response.status === 400) {
+                console.log("bad request");
+            } else if (response.status === 401) {
+                console.log("unauthorised");
+            } else if (response.status === 404) {
+                console.log("not found");
+            } else {
+                console.log("something went wrong");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    unlikeReview = async () => {
+        const location_id = await AsyncStorage.getItem('@location_id');
+        const review_id = await AsyncStorage.getItem('@review_id');
+        const token = await AsyncStorage.getItem('@session_token');
+
+        return fetch("http://10.0.2.2:3333/api/1.0.0/location/"+location_id+"/review/"+review_id+"/like", {
+            method: 'delete',
+            headers: {
+                'X-Authorization': token
+            }
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                console.log("Review Unliked");
+                Alert.alert("Review Unliked");
+            } else if (response.status === 401) {
+                console.log("unauthorised");
+            } else if (response.status === 403) {
+                console.log("forbidden");
+            } else if (response.status === 404) {
+                console.log("not found");
+            } else {
+                console.log("something went wrong");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
     render() {
         const navigation = this.props.navigation;
         if (this.state.isLoading) {
@@ -71,8 +131,12 @@ class SingleReview extends Component {
                             </View>))}
                     <View>
                         <TouchableOpacity style={styles.formTouch}
-                            onPress={() => navigation.navigate('ReviewsList')}
-                        ><Text style={styles.formTouchText}>Reviews</Text>
+                            onPress={() => this.likeReview()}
+                        ><Text style={styles.formTouchText}>Like Review</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.formTouch}
+                            onPress={() => this.unlikeReview()}
+                        ><Text style={styles.formTouchText}>Unlike Review</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

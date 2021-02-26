@@ -15,6 +15,7 @@ class ReviewsList extends Component {
     }
 
     componentDidMount() {
+        this.setState({isLoading: true});
         this.getData();
     }
 
@@ -37,7 +38,6 @@ class ReviewsList extends Component {
                     isLoading: false,
                     reviewsData: responseJson.location_reviews
                 })
-                console.log(responseJson.location_reviews);
             })
             .catch((error) => {
                 console.log(error);
@@ -46,7 +46,6 @@ class ReviewsList extends Component {
 
     setReviewID = async (id) => {
         await AsyncStorage.setItem('@review_id', id.toString());
-        console.log("id from review list:" + id);
     }
 
     render() {

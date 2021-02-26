@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import styles from '../Style/Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -49,7 +49,7 @@ class Location extends Component {
                     avgQuality: responseJson.avg_quality_rating,
                     avgClenliness: responseJson.avg_clenliness_rating
                 })
-                console.log(responseJson);
+                //console.log(responseJson);
             })
             .catch((error) => {
                 console.log(error);
@@ -57,11 +57,61 @@ class Location extends Component {
     }
 
     favouriteLocation = async () => {
-    
+        const location_id = await AsyncStorage.getItem('@location_id');
+        const token = await AsyncStorage.getItem('@session_token');
+
+        return fetch("http://10.0.2.2:3333/api/1.0.0/location/"+location_id+"/favourite", {
+            method: 'post',
+            headers: {
+                'X-Authorization': token
+            }
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                console.log("Location Favorited");
+                Alert.alert("Location Favorited");
+            } else if (response.status === 400) {
+                console.log("bad request");
+            } else if (response.status === 401) {
+                console.log("unauthorised");
+            } else if (response.status === 404) {
+                console.log("not found");
+            } else {
+                console.log("something went wrong");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     unfavouriteLocation = async () => {
-    
+        const location_id = await AsyncStorage.getItem('@location_id');
+        const token = await AsyncStorage.getItem('@session_token');
+
+        return fetch("http://10.0.2.2:3333/api/1.0.0/location/"+location_id+"/favourite", {
+            method: 'delete',
+            headers: {
+                'X-Authorization': token
+            }
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                console.log("Location Unfavorited");
+                Alert.alert("Location Unfavorited");
+            } else if (response.status === 401) {
+                console.log("unauthorised");
+            } else if (response.status === 403) {
+                console.log("forbidden");
+            } else if (response.status === 404) {
+                console.log("not found");
+            } else {
+                console.log("something went wrong");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     render() {
@@ -84,6 +134,14 @@ class Location extends Component {
                         <Text style={styles.textStyle} >Average Clenliness Rating: {this.state.avgClenliness}/5</Text>
                     </View>
                     <View>
+                        <TouchableOpacity style={styles.formTouch}
+                            onPress={() => this.favouriteLocation()}
+                        ><Text style={styles.formTouchText}>Favourite Location</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.formTouch}
+                            onPress={() => this.unfavouriteLocation()}
+                        ><Text style={styles.formTouchText}>Unfavourite Location</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity style={styles.formTouch}
                             onPress={() => navigation.navigate('ReviewsList')}
                         ><Text style={styles.formTouchText}>Reviews</Text>
